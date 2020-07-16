@@ -1,0 +1,7 @@
+# endpoint service name to default and stage name to default,
+# so under schema we can see default$default for the pgAdmin database
+
+endpoint: ${env:PRISMA_ENDPOINT}
+# endpoint: https://tarang-blog-app-5dfeada7e0.herokuapp.com/tarang-sachdev-blog-app/prod
+datamodel: datamodel.prisma
+secret: ${env:PRISMA_SECRET}

@@ -1,0 +1,75 @@
+# instead of commented code above it import the enum and we can assign it where needed
+# prisma/graphql-import/ which is in-build for grphql-yoga
+
+# import UserOrderByInput, from './generated/prisma.graphql'
+
+type Query {
+  users(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [User!]!
+  me: User!
+}
+
+type Mutation {
+  createUser(data: CreateUserInput!): AuthPayload!
+  login(data: LoginUserInput!): AuthPayload!
+  deleteUser: User!
+  updateUser(data: UpdateUserInput!): User!
+}
+
+# type Subscription {
+#    # post: PostSubscriptionPayload!
+# }
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  # email: String!
+  email: String
+  #remove ! because when you are firing me query then only email will be string othere wise for all users query we don't want
+  # to give email as we will give email : null;
+  password: String!
+  # posts: [Post!]!
+  updatedAt: String!
+  createdAt: String!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+# type PostSubscriptionPayload {
+#   mutation: MutationType!
+#   node: Post # prisma give node: Comment so we provide here to align that
+#   # updatedFields: [String!]
+#   # previousValues: Post
+# }
+
